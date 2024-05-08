@@ -1,5 +1,3 @@
-
-
 # Function for matrix multiplication
 def multiply_matrices(matrix_1, matrix_2)
     matrix_1_rowsize, matrix_1_colsize, matrix_2_colsize = matrix_1.length, matrix_1[0].length, matrix_2[0].length    
