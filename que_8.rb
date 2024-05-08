@@ -9,19 +9,18 @@ Explanation: The longest sub-array with elements summing up-to 0 is [-2, 2, -8, 
 # function for longest sub-array in an array with a sum equal to 0
 def longest_subarray(arr)
     n = arr.length
-    arr = []
+    res = []
     s = 0
     for i in 0...n do
         s = arr[i]
         for j in i+1...n do
             s += arr[j]
-            print(arr[j])
             if s == 0
-                arr << (j-i)+1
+                res << (j-i)+1
             end
         end
     end
-    arr.max
+    res.max
 end
 # Initializing the array
 arr = []
