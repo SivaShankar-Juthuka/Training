@@ -49,5 +49,7 @@ def format_datetime(input)
     puts "Format #3: #{date_time.strftime("%l:%M %p, %A %d %b, %Y")}"
 end
 
-format_datetime("08-05-2024 11:26")
+puts "Enter a valid datetime: in this format dd-mm-yyyy hours:minutes: "
+user_input = gets.chomp
+format_datetime(user_input)
 # Output will be displayed below this line -
