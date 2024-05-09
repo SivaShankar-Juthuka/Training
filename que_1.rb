@@ -11,15 +11,15 @@ def is_valid(expression)
         if ["}", "]", ")"].include?(expression[0]) || ["{", "[", "("].include?(expression[len - 1])
             return false
         end
-        expression.each_char do |x|
-            if x == '(' || x == '[' || x == '{'
-                result.push(x)
+        expression.each_char do |iterable|
+            if iterable == '(' || iterable == '[' || iterable == '{'
+                result.push(iterable)
             else
-                if (x == '}' && !result.empty? && result[-1] == '{')
+                if (iterable == '}' && !result.empty? && result[-1] == '{')
                     result.pop()
-                elsif (x == ']' && !result.empty? && result[-1] == '[')
+                elsif (iterable == ']' && !result.empty? && result[-1] == '[')
                     result.pop()
-                elsif (x == ')' && !result.empty? && result[-1] == '(')
+                elsif (iterable == ')' && !result.empty? && result[-1] == '(')
                     result.pop()
                 elsif (["}", "]", ")"].include?(x) && !result.empty?)
                     return false
