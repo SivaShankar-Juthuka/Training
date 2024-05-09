@@ -1,11 +1,47 @@
-# taking inputs Dynamically in integer
-print "Enter the Numbers: "
-a = get.chomp.to_i
-b = gets.chomp.to_i 
+def is_valid(expression)
+    # checking weather expression contains alphabets or not
+    if !expression..match?(/[A-Za-z]/)
+        return false
+    end
+    len = expression.length
+    if len % 2 != 0
+        return false
+    else
+        result = []
+        if ["}", "]", ")"].include?(expression[0]) || ["{", "[", "("].include?(expression[len - 1])
+            return false
+        end
+        expression.each_char do |x|
+            if x == '(' || x == '[' || x == '{'
+                result.push(x)
+            else
+                if (x == '}' && !result.empty? && result[-1] == '{')
+                    result.pop()
+                elsif (x == ']' && !result.empty? && result[-1] == '[')
+                    result.pop()
+                elsif (x == ')' && !result.empty? && result[-1] == '(')
+                    result.pop()
+                elsif (["}", "]", ")"].include?(x) && !result.empty?)
+                    return false
+                elsif (["}", "]", ")"].include?(x) && result.empty?)
+                    return false
+                end
+            end
+        end
+        if result.empty?
+            return true
+        else
+            return false
+        end
+    end
+end
 
-input = (a+b)*[(a/b)-{a-b+(a^b)}]
-input1 = (a+b)*[(a/b)-{a-b+(a^b}
-# Checking Expression is valid or not Operators
-# puts "Addition: #{a+b}", "Subtraction: #{a-b}", "Multiplication: #{a*b}", "Division: #{a/b}", "Modulus: #{a%b}", "Exponentiation: #{a**b}"
-puts  "#{input}"
-puts  "#{input_1}"  
+
+
+puts "Enter the Expression: "
+input = gets.chomp
+if is_valid(input)
+    puts "Valid"
+else
+    puts "Invalid"
+end
