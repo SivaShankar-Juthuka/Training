@@ -30,25 +30,6 @@ Date (Year, Month, Day):
 
   %j - Day of the year (001..366)
 
-Time (Hour, Minute, Second, Subsecond):
-  %H - Hour of the day, 24-hour clock, zero-padded (00..23)
-  %k - Hour of the day, 24-hour clock, blank-padded ( 0..23)
-  %I - Hour of the day, 12-hour clock, zero-padded (01..12)
-  %l - Hour of the day, 12-hour clock, blank-padded ( 1..12)
-  %P - Meridian indicator, lowercase (``am'' or ``pm'')
-  %p - Meridian indicator, uppercase (``AM'' or ``PM'')
-
-  %M - Minute of the hour (00..59)
-
-  %S - Second of the minute (00..60)
-
-  %L - Millisecond of the second (000..999)
-  %N - Fractional seconds digits, default is 9 digits (nanosecond)
-          %3N  millisecond (3 digits)   %15N femtosecond (15 digits)
-          %6N  microsecond (6 digits)   %18N attosecond  (18 digits)
-          %9N  nanosecond  (9 digits)   %21N zeptosecond (21 digits)
-          %12N picosecond (12 digits)   %24N yoctosecond (24 digits)
-
 Weekday:
   %A - The full weekday name (``Sunday'')
           %^A  uppercased (``SUNDAY'')
@@ -57,16 +38,11 @@ Weekday:
   %u - Day of the week (Monday is 1, 1..7)
   %w - Day of the week (Sunday is 0, 0..6)
 
-
-Literal string:
-  %n - Newline character (\n)
-  %t - Tab character (\t)
-  %% - Literal ``%'' character
 =end
 require 'date'
 
 def format_datetime(input)
-    date_time = Time.parse(input)
+    date_time = DateTime.parse(input)
     
     puts "Format #1: #{date_time.strftime("%a, %d %b, %Y")}"
     puts "Format #2: #{date_time.strftime("%m/%d/%Y")}"
