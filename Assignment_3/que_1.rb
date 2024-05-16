@@ -1,21 +1,24 @@
 # Class for quick Sort
 class QuickSort
 
+    # function for swapping
+    def swap(array, iter1, iter2)
+        temp = array[iter1]
+        array[iter1] = array[iter2]
+        array[iter2] = temp
+    end
+
     # Function for Partitioning the array and fixing the pivot element in correct order
     def partition(array, low, high)
         pivot = array[low]
         end_index = high
         for i in (end_index).downto(low+1)
             if array[i] > pivot
-                temp = array[i]
-                array[i] = array[end_index]
-                array[end_index] = temp
+                swap(array, i, end_index)
                 end_index -= 1
             end
         end
-        temp = array[low]
-        array[low] = array[end_index]
-        array[end_index] = temp
+        swap(array, low, end_index)
         end_index 
     end
 
@@ -29,6 +32,7 @@ class QuickSort
     end
 end
 
+# array Input
 array = []
 print "Enter the number of elements in the array: "
 number_of_elements = gets.chomp.to_i
