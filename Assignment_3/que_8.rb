@@ -1,48 +1,54 @@
-# class for Minimum Spanning Tree - Dijkstra's Algorithm
-class DijkstraAlgo
-    attr_accessor :INF, :graph
+# Prim's Minimum Spanning Tree (MST) algorithm.
+class PrimsAlgo
+    attr_accessor :v, :graph, :INF
 
-    def initialize(weighted_matrix)
+    def initialize(vertices)
         @INF = Float::INFINITY
-        @graph = weighted_matrix
+        @v = vertices
+        @graph = Array.new(@v) { Array.new(@v, 0) }
     end
 
-    def min_distance(dist, spt_set)
+    # A utility function to print the constructed MST stored in parent[]
+    def print_mst(parent)
+        puts "Edge \tWeight"
+        (1...@v).each do |i|
+            puts "#{parent[i]} - #{i}\t#{@graph[i][parent[i]]}"
+        end
+    end
+
+    # A utility function to find the vertex with minimum distance value from the set of vertices
+    def min_key(key, mst_set)
         min = @INF
-        min_index = -1
-        dist.each_with_index do |d, v|
-            if !spt_set[v] && d <= min
-                min = d
+        min_index = nil
+        (0...@v).each do |v|
+            if key[v] < min && !mst_set[v]
+                min = key[v]
                 min_index = v
             end
         end
         min_index
     end
-    
-    # A utility function to print the constructed distance array
-    def print_solution(dist)
-        puts "Vertex \t Distance from Source"
-        dist.each_with_index do |d, i|
-            puts "#{i} \t #{d}"
-        end
-    end
-    
-    def dijkstra_MST(src)
-        v = @graph.size
-        dist = Array.new(v, @INF)
-        spt_set = Array.new(v, false)
-        dist[src] = 0
 
-        (v - 1).times do
-            u = min_distance(dist, spt_set)
-            spt_set[u] = true
-            @graph[u].each_with_index do |weight, v|
-                if !spt_set[v] && weight != 0 && dist[u] != @INF && dist[u] + weight < dist[v]
-                    dist[v] = dist[u] + weight
+    # Function to construct and print MST for a graph
+    def prim_mst
+        key = Array.new(@v, @INF)
+        parent = Array.new(@v)
+        key[0] = 0
+        mst_set = Array.new(@v, false)
+        parent[0] = -1
+
+        (@v - 1).times do
+            u = min_key(key, mst_set)
+            break if u.nil?  # Break if no minimum key is found
+            mst_set[u] = true
+            (0...@v).each do |v|
+                if @graph[u][v] > 0 && !mst_set[v] && key[v] > @graph[u][v]
+                    key[v] = @graph[u][v]
+                    parent[v] = u
                 end
             end
         end
-        print_solution(dist)
+        print_mst(parent)
     end
 end
 
@@ -50,9 +56,10 @@ print "Enter Number of Nodes: "
 nodes = gets.chomp.to_i
 puts "Enter the weighted Matrix: "
 weighted_matrix = []
-for i in 0..nodes-1
+for i in 0...nodes
     weighted_matrix[i] = gets.chomp.split(" ").map(&:to_i)
 end
 
-dijkstra = DijkstraAlgo.new(weighted_matrix)
-dijkstra.dijkstra_MST(0)
+prims = PrimsAlgo.new(nodes)
+prims.graph = weighted_matrix
+prims.prim_mst
