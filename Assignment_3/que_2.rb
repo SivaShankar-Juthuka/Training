@@ -2,10 +2,6 @@
 class MergeSort
     attr_accessor :result
 
-    # def initialize(size)
-    #     @result = Array.new(size)
-    # end
-
     def merge(array, low, mid, high)
         i = low
         j = mid + 1
