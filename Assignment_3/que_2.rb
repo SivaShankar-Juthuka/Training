@@ -51,7 +51,6 @@ end
 
 array = []
 puts "Enter Elements in the Array: "
-
 array = gets.chomp.split().map(&:to_i)
 puts "Array before sorting: #{array}"
 # Creating Object 
